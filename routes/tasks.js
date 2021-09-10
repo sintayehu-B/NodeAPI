@@ -26,7 +26,7 @@ router.post("/",user_auth,role_auth([roles.USER]),async (req,res) =>{
         });   
     } catch (error) {
         console.log(error);
-        return res.status(201).json({
+        return res.status(500).json({
             message: "Couldn't create the task",
             success:false,
         });

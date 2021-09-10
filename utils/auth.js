@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const {SECRET} = require("../config");
 /**
- * @DESC Register Users
+ * Register Users
  */
 const user_register = async(user_dets,role,res) =>{
     try {
@@ -52,7 +52,7 @@ const user_register = async(user_dets,role,res) =>{
     }
 }
 /**
- * @DESC Login Users
+ * Login Users
  */
 const user_login = async(user_creds,res) =>{
     let {username, password,email } = user_creds;
@@ -103,12 +103,12 @@ const validate_email = async email =>{
     return user? false : true;
 }
 /**
- * @DESC Passport middleware
+ * Passport middleware
  */
 const user_auth = passport.authenticate("jwt",{session:false});
 
 /**
- * @DESC Update User middleware
+ *  Update User middleware
  */
 
  const update_user = async (id, _user,res) => {
@@ -154,7 +154,7 @@ const user_auth = passport.authenticate("jwt",{session:false});
 }
 
 /**
- * @DESC Change Password
+ * Change Password
  */
  const change_password = async (id,old_password,new_password,res) => {
     // TODO Check password strength
