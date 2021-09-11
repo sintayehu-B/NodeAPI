@@ -71,14 +71,16 @@ const user_login = async(user_creds,res) =>{
                 user_id : user._id,
                 role: user.role,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                // password:user.password
             },SECRET,{expiresIn: "15 days" }
-        );
-        let result =  {
-            username: user.username,
-            role: user.role,
-            email: user.email,
-            token:`Bearer ${token}`,
+            );
+            let result =  {
+                username: user.username,
+                role: user.role,
+                email: user.email,
+                // password:user.password,
+                token:`Bearer ${token}`,
             expiryDate: moment().add(200, 'hours')
         }
         return res.status(200).json({
@@ -188,7 +190,7 @@ const user_auth = passport.authenticate("jwt",{session:false});
 }
 
 /**
- * @DESC Check role middleware
+ * Check role middleware
  */
 const role_auth = roles => (req,res,next) =>{
     if(roles.includes(req.user.role)){
@@ -206,6 +208,7 @@ const serialize_user = user => {
         _id: user._id,
         username: user.username,
         email: user.email,
+        password: user.password,
         frist_name: user.frist_name,
         last_name: user.last_name
     }
