@@ -33,6 +33,7 @@ router.post("/",user_auth,role_auth([roles.USER]),async (req,res) =>{
     }
 
 })
+
 router.put("/:taskId",user_auth,role_auth([roles.USER]),async (req,res) =>{
     let task  = await Task.findById(req.params.taskId);
     let _task = req.body;
@@ -49,6 +50,28 @@ router.put("/:taskId",user_auth,role_auth([roles.USER]),async (req,res) =>{
         task
     });
 })
+// delete saved plans user
+router.delete('/:taskId',user_auth, async(req, res,next) => {
+    try {
+        let x = await Task.deleteOne({_id:req.params.taskId});
+        console.log(x);
+        return res.status(200).json({
+            message: "Deleted successfully.",
+            success:true
+        });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Error deleting.",
+            success:false
+        });
+    }
+});
+
+// router.delete('/:taskId', (req,res)=>{
+    // Task.findByIdAndRemove(req.params.taskIdl)
+// })
 
 
 module.exports = router;

@@ -22,5 +22,24 @@ router.put('/update',user_auth,role_auth([roles.USER]), async(req, res,next) => 
 router.put("/update-password",user_auth,role_auth([roles.USER]), async (req,res,next) =>{
     return await change_password(req.user._id,req.body.old_password,req.body.new_password,res);
 })
+router.delete('/:id',user_auth, async(req, res,next) => {
+    try {
+        let x = await User.deleteOne({_id:req.user._id});
+        console.log(x);
+        return res.status(200).json({
+            message: "Deleted successfully.",
+            success:true
+        });
 
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: "Error deleting.",
+            success:false
+        });
+    }
+});
+// router.delete("/delete-user",user_auth,role_auth([role.USER]),async(req,res.next) =>{
+//     return await delete_user(req.user._id,req.body,res)
+// });
 module.exports = router;
